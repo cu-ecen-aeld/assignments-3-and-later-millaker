@@ -11,8 +11,10 @@ WRITEDIR=/tmp/aeld-data
 if [ -d conf ]
 then
     CONF_PATH=
+    EXEC_PREFIX=./
 else
     CONF_PATH=/etc/finder-app/
+    EXEC_PREFIX=
 fi
 username=$(cat ${CONF_PATH}conf/username.txt)
 
@@ -60,10 +62,10 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	${EXEC_PREFIX}writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$(${EXEC_PREFIX}finder.sh "$WRITEDIR" "$WRITESTR")
 echo $OUTPUTSTRING > /tmp/assignment4-result.txt
 
 # remove temporary directories
