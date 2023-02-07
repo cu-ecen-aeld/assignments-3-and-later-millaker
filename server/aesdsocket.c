@@ -135,6 +135,10 @@ int server(int daemon) {
         exit(-1);
     }
     printf("Create socket success\n");
+    // Setup socket option
+    int opt = 1;
+    socklen_t optlen = sizeof(opt);
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, optlen);
     // Setup addr
     struct addrinfo *addr_struct;
     struct addrinfo hints;
