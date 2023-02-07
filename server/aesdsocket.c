@@ -143,7 +143,7 @@ int server(int daemon) {
     struct addrinfo *addr_struct;
     struct addrinfo hints;
     memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_family = AF_UNSPEC;
+    hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
     if ((status = getaddrinfo(NULL, "9000", &hints, &addr_struct)) != 0) {
@@ -151,7 +151,7 @@ int server(int daemon) {
         exit(-1);
     }
     // Assign address to socketsent =i
-    if (bind(sockfd, addr_struct->ai_addr, sizeof(struct sockaddr))) {
+    if (bind(sockfd, addr_struct->ai_addr, sizeof(struct addrinfo))) {
         fprintf(stderr, "Bind error\n");
         freeaddrinfo(addr_struct);
         exit(-1);
